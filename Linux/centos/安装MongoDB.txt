@@ -1,0 +1,107 @@
+mongodb defaulf configuration file is /etc/mongod.conf
+
+一、使用yum安装
+
+1、配置yum
+Create a /etc/yum.repos.d/mongodb-org-3.6.repo file so that you can install MongoDB directly, using yum.
+
+For MongoDB 3.6:
+mongodb-org-3.6.repo:
+[mongodb-org-3.6]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.6/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-3.6.asc
+
+
+For versions of MongoDB earlier than 3.6
+create a /etc/yum.repos.d/mongodb-org-3.4.repo:
+[mongodb-org-3.4]
+name=MongoDB 3.4 Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
+gpgcheck=0
+enabled=1
+
+
+2、安装MongoDB
+sudo yum install -y mongodb-org
+# 安装特殊指定版本：
+# sudo yum install -y mongodb-org-3.6.3 mongodb-org-server-3.6.3 mongodb-org-shell-3.6.3 mongodb-org-mongos-3.6.3 mongodb-org-tools-3.6.3
+# You can specify any available version of MongoDB. However yum will upgrade the packages when a newer version becomes available. 
+# To prevent unintended upgrades, pin the package. To pin a package, add the following exclude directive to your /etc/yum.conf file:
+#     exclude=mongodb-org,mongodb-org-server,mongodb-org-shell,mongodb-org-mongos,mongodb-org-tools
+
+
+3、启动MongoDB
+
+* Configure SELinux:
+1) semanage port -a -t mongod_port_t -p tcp 27017
+2) Disable SELinux by setting the SELINUX setting to disabled in /etc/selinux/config.
+   SELINUX=disabled    # You must reboot the system for the changes to take effect.
+3) Set SELinux to permissive mode in /etc/selinux/config by setting the SELINUX setting to permissive.
+   SELINUX=permissive  # You must reboot the system for the changes to take effect.
+
+* Data Directories and Permissions
+The MongoDB instance stores its data files in /var/lib/mongo and its log files in /var/log/mongodb by default, 
+and runs using the mongod user account. You can specify alternate log and data file directories in /etc/mongod.conf.
+
+启动命令：
+mongod -f /to/mongod.conf --auth
+
+
+** WARNING: mongodb Access control is not enabled for the database.
+**          Read and write access to data and configuration is unrestricted.
+使用    mongod --auth
+
+
+4、配置mongod.conf
+# mongod.conf
+
+# for documentation of all options, see:
+#   http://docs.mongodb.org/manual/reference/configuration-options/
+
+# where to write logging data.
+systemLog:
+  destination: file
+  logAppend: true
+  path: /home/orange/app/mongodb/mongo_log/mongod.log
+
+# Where and how to store data.
+storage:
+  dbPath: /home/orange/app/mongodb/mongo_data
+  journal:
+    enabled: true
+#  engine:
+#  mmapv1:
+#  wiredTiger:
+
+# how the process runs
+processManagement:
+  fork: true  # fork and run in background
+#  fork: false
+  pidFilePath: /home/orange/app/mongodb/mongo_data/mongod.pid  # location of pidfile
+#  pidFilePath: /var/run/mongodb/mongod.pid  # location of pidfile
+  timeZoneInfo: /usr/share/zoneinfo
+
+# network interfaces
+net:
+  port: 27017
+  bindIp: 127.0.0.1  # Listen to local interface only, comment to listen on all interfaces.
+
+
+#security:
+
+#operationProfiling:
+
+#replication:
+
+#sharding:
+
+## Enterprise-Only Options
+
+#auditLog:
+
+#snmp:
+
+
