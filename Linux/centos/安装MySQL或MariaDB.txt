@@ -1,0 +1,5 @@
+一. 安装MariaDB
+1. 安装扩展源
+yum install epel-release
+2. 安装MariaDB Server
+yum install mariadb-server

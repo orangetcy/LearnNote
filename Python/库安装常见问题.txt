@@ -1,0 +1,3 @@
+1、 安装Python mysqlclient出现“OSError: mysql_config not found”错误
+安装libmysqlclient-dev包即可，如果还有问题，可以安装python-dev：
+# apt-get install libmysqlclient-dev python3-dev

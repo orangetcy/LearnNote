@@ -45,3 +45,8 @@ vi /etc/sysconfig/iptables
 systemctl restart iptables.service #重启防火墙使配置生效
 systemctl enable iptables.service #设置防火墙开机启动
 最后重启系统使设置生效即可。
+
+
+3、文件权限
+1)、chown 文件夹所有权
+sudo chown -R orange /home/orange
