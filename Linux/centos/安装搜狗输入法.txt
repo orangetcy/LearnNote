@@ -1,0 +1,26 @@
+1. 如果本机已安装ibus,需要先卸载:
+#rpm -qa | grep ibus
+#sudo yum remove ibus
+
+2. 安装fcitx
+#yum install fcitx fcitx-pinyin fcitx-configtool
+
+3. 下载搜狗输入法de版本
+
+4. 安装dpkg
+#yum install dpkg
+
+5. 解压缩deb包
+#ar vx sogoupinyin_1.2.0.0042_amd64.deb    #执行本句命令后会有如下提示：
+x - debian-binary
+x - control.tar.gz
+x - data.tar.xz
+接下来继续安装,
+#tar -Jxvf data.tar.xz  -C /
+复制搜狗拼音库
+#cp /usr/lib/x86_64-linux-gnu/fcitx/fcitx-sogoupinyin.so  /usr/lib64/fcitx/
+执行下列命令后重启
+#fcitx    #xfce: imsetting-switch fcitx
+#sogou-qimpanel
+执行时会报依赖缺少,安装相应的包即可
+如果还不能打开面板,注销当前用户再重新登录即可
