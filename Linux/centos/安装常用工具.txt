@@ -1,0 +1,16 @@
+一. 安装net-tools
+#yum install net-tools
+Description : The net-tools package contains basic networking tools,
+            : including ifconfig, netstat, route, and others.
+            : Most of them are obsolete. For replacement check iproute
+            : package
+
+
+二. 使用docker配置工具
+1. Gitlab Docker
+#sudo docker run --detach --hostname gitlab.example.com -p 80:80 -p 2222:22 --name gitlab --volume /home/orange/data/gitlab/config:/etc/gitlab:Z --volume /home/orange/data/gitlab/logs:/var/log/gitlab:Z --volume /home/orange/data/gitlab/data:/var/opt/gitlab:Z gitlab/gitlab-ce:latest
+#使用上述命令将会自动拉取docker镜像
+#hostname改成自己想要的
+#如果不是在SELinux下,取消挂载目录后的":Z"
+#使用--volume挂载本地磁盘,这样gitlab的内容就会存在本地目录下,更新docker镜像在使用同样路径,就不会丢失数据
+#使用外网ip:  -p ip:port:docker_port

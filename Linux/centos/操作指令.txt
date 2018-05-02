@@ -50,3 +50,18 @@ systemctl enable iptables.service #设置防火墙开机启动
 3、文件权限
 1)、chown 文件夹所有权
 sudo chown -R orange /home/orange
+
+
+二. mount的使用
+1. 挂载NTFS分区
+#安装ntfs-3g
+#yum install ntfs-3g
+#mount -t ntfs-3g /dev/sdb3 /mnt/data
+
+
+三. SELinux
+1. 查看SELinux状态以及临时开关SELinux
+#getenforce    
+#Enforcing:SELinux处于开启状态; Permissive:SELinux处于关闭状态
+#setenforce 0  #临时关闭SELinux,重启失效
+#setenforce 1  #临时开启SELinux
