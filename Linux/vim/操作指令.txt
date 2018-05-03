@@ -1,0 +1,6 @@
+一. 查找替换字符串
+1. 替换字符串:
+a. :s/str1/str2/g     # 替换当前行str1为str2
+b. :.,$s/str1/str2/g  # 替换当前行往后的所有str1为str2
+c. :1,$s/str1/str2/g  # 替换当前文本的所有str1为str2
+d. :g/str1/str2/g     # 功能同上
