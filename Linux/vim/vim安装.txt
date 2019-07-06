@@ -11,4 +11,6 @@ make
 # sudo yum -y install perl-devel perl-ExtUtils-Embed
 # 同时支持python还需要安装python的库
 # sudo yum install python-devel python3-devel
+# 支持图形
+# sudo yum install libXt-devel gtk2-devel
 sudo make install
